@@ -1,12 +1,18 @@
-FROM node:current
 
-COPY . /app
+#Stage 1
+FROM node:alpine3.16
 
-WORKDIR  /app
+WORKDIR /app
+
+COPY package.json .
+
+COPY package-lock.json .
+
+RUN npm install
 
 COPY . .
 
-RUN npm install
+RUN npm run build
 
 COPY . .
 
